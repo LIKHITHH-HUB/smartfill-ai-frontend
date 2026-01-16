@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* PAGE CENTER */
+.page {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* FORM CARD */
+.form-wrapper {
+  background: #ffffff;
+  width: 100%;
+  max-width: 580px;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* TITLE */
+h2 {
+  text-align: center;
+  color: #1f2937; /* dark slate */
+  margin-bottom: 6px;
+}
+
+/* SUBTITLE */
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #4b5563; /* soft gray */
+  margin-bottom: 18px;
+}
+
+/* TEXTAREA */
+textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #c7d2fe;
+  background: #eef2ff; /* light indigo */
+  font-size: 14px;
+  color: #1f2937;
+  resize: none;
+}
+
+textarea::placeholder {
+  color: #6b7280;
+}
+
+/* PRIMARY BUTTON */
+button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(99, 102, 241, 0.4);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* INPUT FIELDS */
+.fields input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #c7d2fe;
+  background: #f8fafc; /* very light gray */
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* INTEREST CHECKBOX */
+.interest {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* SUBMIT BUTTON */
+.submit-btn {
+  margin-top: 14px;
+  background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.submit-btn:hover {
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.45);
+}
