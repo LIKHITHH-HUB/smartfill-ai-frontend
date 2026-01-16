@@ -50,9 +50,9 @@ export default function App() {
 
         <textarea
           placeholder="Example:
-Freshers event at G. Pullaiah College of Engineering & Technology,
-Hyderabad on 25 Jan 2026.
-Contact: 8712756716 | likith15@gmail.com"
+Freshers event at abc Pullaiah College of Engineering & Technology,
+kurnool on 25 Jan 2026.
+Contact: 8712756236 | abc15@gmail.com"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
