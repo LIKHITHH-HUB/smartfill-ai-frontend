@@ -3,96 +3,155 @@
   font-family: "Inter", sans-serif;
 }
 
+/* ===== PAGE CENTER FIX (IMPORTANT) ===== */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
 .page {
+  width: 100%;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(120deg, #4f46e5, #06b6d4);
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
   padding: 20px;
 }
 
+/* ===== FORM CARD ===== */
 .card {
   width: 100%;
   max-width: 560px;
   background: #ffffff;
-  padding: 32px;
-  border-radius: 18px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  padding: 34px;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+
+  /* animation */
+  animation: slideFade 0.7s ease-out;
 }
 
+/* Card animation */
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HEADINGS ===== */
 h1 {
   text-align: center;
   color: #111827;
+  margin-bottom: 6px;
 }
 
 .tagline {
   text-align: center;
   color: #6b7280;
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-bottom: 22px;
 }
 
+/* ===== TEXTAREA ===== */
 textarea {
   width: 100%;
   min-height: 120px;
   padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  border: 2px solid #e5e7eb;
   background: #f9fafb;
   resize: none;
-  margin-bottom: 15px;
+  font-size: 14px;
+  transition: 0.3s ease;
 }
 
+textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+/* ===== BUTTONS ===== */
 .primary {
   width: 100%;
-  padding: 12px;
-  background: #6366f1;
+  padding: 14px;
+  margin-top: 14px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .primary:hover {
-  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
 }
 
+/* ===== FORM GRID ===== */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 14px;
+  margin-top: 22px;
 }
 
+/* Inputs */
 .form-grid input {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
   background: #f3f4f6;
+  font-size: 14px;
+  transition: 0.25s ease;
 }
 
+.form-grid input:focus {
+  outline: none;
+  border-color: #06b6d4;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.25);
+}
+
+/* ===== CHECKBOX ===== */
 .interest-box {
   grid-column: span 2;
   display: flex;
-  gap: 10px;
   align-items: center;
-  padding: 12px;
-  background: #ecfeff;
-  border-radius: 10px;
-  margin-top: 5px;
+  gap: 10px;
+  padding: 14px;
+  background: linear-gradient(135deg, #ecfeff, #cffafe);
+  border-radius: 12px;
+  font-size: 14px;
 }
 
+/* ===== SUBMIT ===== */
 .submit {
   width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  background: #16a34a;
+  margin-top: 22px;
+  padding: 14px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
 }
 
 .submit:disabled {
@@ -100,9 +159,23 @@ textarea {
   cursor: not-allowed;
 }
 
+/* ===== SUCCESS MESSAGE ===== */
 .success {
   text-align: center;
+  margin-top: 16px;
   color: #16a34a;
-  margin-top: 15px;
   font-weight: 600;
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
