@@ -44,7 +44,8 @@ export default function App() {
   return (
     <div className="page">
       <div className="card">
-        <h1>SmartFill AI</h1>
+        <h1>SmartFill AI – LIVE</h1>
+
         <p className="subtitle">
           Paste any event / college / office message below.
           <br />
