@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [rawText, setRawText] = useState("");
+  const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -14,53 +15,77 @@ export default function App() {
     date: "",
   });
 
-  const handleAutoFill = async () => {
-    if (!rawText.trim()) return;
+  async function handleAutoFill() {
+    if (!text.trim()) return;
 
+    setLoading(true);
     try {
       const res = await fetch(
-        "https://YOUR-RENDER-BACKEND-URL.onrender.com/api/parse",
+        "https://YOUR-BACKEND-URL.onrender.com/api/parse",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: rawText }),
+          body: JSON.stringify({ text }),
         }
       );
 
       const data = await res.json();
       setForm(data);
-    } catch (err) {
-      alert("Auto-fill failed");
+    } catch (e) {
+      alert("Auto-fill failed. Try again.");
+    } finally {
+      setLoading(false);
     }
-  };
+  }
 
   return (
     <div className="page">
       <div className="card">
-        <h2>SmartFill – AI Auto Form</h2>
-        <p className="subtitle">
-          Paste text → AI extracts structured details
+        <h1>SmartFill AI</h1>
+        <p className="tagline">
+          Paste any event, college, or office details — AI fills the form for you
         </p>
 
+        {/* TEXT INPUT */}
         <textarea
-          placeholder="Example: Freshers event at G. Pullaiah College, Hyderabad on 25 Jan 2026. Contact: likith15@gmail.com 8712756716"
-          value={rawText}
-          onChange={(e) => setRawText(e.target.value)}
+          placeholder={`Example:
+Freshers event at G Pullaiah College of Engineering and Technology,
+Hyderabad on 25 Jan 2026.
+Contact: likith15@gmail.com 8712756716`}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
 
-        <button onClick={handleAutoFill}>Auto Fill</button>
+        <button onClick={handleAutoFill} disabled={loading}>
+          {loading ? "Processing..." : "Auto Fill Form"}
+        </button>
 
-        <input placeholder="Name" value={form.name} readOnly />
-        <input placeholder="Email" value={form.email} readOnly />
-        <input placeholder="Phone" value={form.phone} readOnly />
-        <input placeholder="Event / Function" value={form.event} readOnly />
-        <input
-          placeholder="College / Office / Organization"
-          value={form.organization}
-          readOnly
-        />
-        <input placeholder="Place" value={form.place} readOnly />
-        <input placeholder="Date" value={form.date} readOnly />
+        {/* RESULT FORM */}
+        <div className="form">
+          <Field icon="👤" label="Name" value={form.name} />
+          <Field icon="📧" label="Email" value={form.email} />
+          <Field icon="📞" label="Phone" value={form.phone} />
+          <Field icon="🎉" label="Event / Function" value={form.event} />
+          <Field
+            icon="🏫"
+            label="College / Organization"
+            value={form.organization}
+          />
+          <Field icon="📍" label="Place" value={form.place} />
+          <Field icon="📅" label="Date" value={form.date} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Field({ icon, label, value }) {
+  return (
+    <div className="field">
+      <span className="icon">{icon}</span>
+      <div>
+        <label>{label}</label>
+        <input value={value} readOnly placeholder="—" />
       </div>
     </div>
   );
