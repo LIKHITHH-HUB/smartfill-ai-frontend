@@ -14,17 +14,17 @@ html, body {
 
 /* ENTIRE PAGE — TRUE CENTER */
 .page {
+  min-height: 100vh;   /* allow content to grow */
   width: 100vw;
-  height: 100vh;
 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
+  padding: 24px;       /* prevents cut-off on small screens */
   background: linear-gradient(135deg, #4f46e5, #06b6d4);
 }
 
-/* CARD */
 .card {
   width: 100%;
   max-width: 520px;
@@ -34,7 +34,11 @@ html, body {
   border-radius: 22px;
 
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+
+  max-height: 90vh;     /* key line */
+  overflow-y: auto;     /* prevents hiding content */
 }
+
 
 /* TITLE */
 .card h1 {
@@ -53,10 +57,13 @@ html, body {
 /* TEXTAREA */
 textarea {
   width: 100%;
-  min-height: 130px;
+  min-height: 140px;
+  margin-bottom: 16px;
+
   padding: 14px;
   border-radius: 14px;
   border: 2px solid #e5e7eb;
+
   font-size: 14px;
   resize: none;
   outline: none;
