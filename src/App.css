@@ -1,181 +1,99 @@
+/* RESET */
 * {
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
 }
 
-/* ===== PAGE CENTER FIX (IMPORTANT) ===== */
-html, body {
-  width: 100%;
-  height: 100%;
+body {
   margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
 }
 
+/* FULL PAGE CENTERING — THIS IS THE KEY */
 .page {
-  width: 100%;
   min-height: 100vh;
   display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  align-items: center;
+  justify-content: center;
   padding: 20px;
 }
 
-/* ===== FORM CARD ===== */
+/* CARD */
 .card {
   width: 100%;
-  max-width: 560px;
+  max-width: 520px;
   background: #ffffff;
-  padding: 34px;
+  padding: 28px;
   border-radius: 20px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
-
-  /* animation */
-  animation: slideFade 0.7s ease-out;
 }
 
-/* Card animation */
-@keyframes slideFade {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===== HEADINGS ===== */
-h1 {
+/* TITLE */
+.card h1 {
+  margin: 0;
   text-align: center;
   color: #111827;
-  margin-bottom: 6px;
 }
 
-.tagline {
+.subtitle {
   text-align: center;
-  color: #6b7280;
   font-size: 14px;
-  margin-bottom: 22px;
+  color: #6b7280;
+  margin: 10px 0 18px;
 }
 
-/* ===== TEXTAREA ===== */
+/* TEXTAREA */
 textarea {
   width: 100%;
   min-height: 120px;
   padding: 14px;
   border-radius: 14px;
   border: 2px solid #e5e7eb;
-  background: #f9fafb;
+  font-size: 14px;
   resize: none;
-  font-size: 14px;
-  transition: 0.3s ease;
-}
-
-textarea:focus {
   outline: none;
-  border-color: #6366f1;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
 }
 
-/* ===== BUTTONS ===== */
-.primary {
+/* BUTTON */
+button {
   width: 100%;
+  margin-top: 16px;
   padding: 14px;
-  margin-top: 14px;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  color: white;
-  border: none;
   border-radius: 14px;
+  border: none;
   font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
   cursor: pointer;
-  transition: 0.3s ease;
 }
 
-.primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
-}
-
-/* ===== FORM GRID ===== */
-.form-grid {
+/* FORM */
+.form {
+  margin-top: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 22px;
+  gap: 12px;
 }
 
-/* Inputs */
-.form-grid input {
-  padding: 12px;
-  border-radius: 12px;
-  border: 2px solid #e5e7eb;
-  background: #f3f4f6;
-  font-size: 14px;
-  transition: 0.25s ease;
-}
-
-.form-grid input:focus {
-  outline: none;
-  border-color: #06b6d4;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.25);
-}
-
-/* ===== CHECKBOX ===== */
-.interest-box {
-  grid-column: span 2;
+/* FIELD */
+.field {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px;
-  background: linear-gradient(135deg, #ecfeff, #cffafe);
-  border-radius: 12px;
-  font-size: 14px;
-}
-
-/* ===== SUBMIT ===== */
-.submit {
-  width: 100%;
-  margin-top: 22px;
-  padding: 14px;
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  color: white;
-  border: none;
+  gap: 12px;
+  padding: 12px 14px;
   border-radius: 14px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s ease;
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
 }
 
-.submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+.field span {
+  font-size: 18px;
 }
 
-.submit:disabled {
-  background: #9ca3af;
-  cursor: not-allowed;
-}
-
-/* ===== SUCCESS MESSAGE ===== */
-.success {
-  text-align: center;
-  margin-top: 16px;
-  color: #16a34a;
-  font-weight: 600;
-  animation: fadeIn 0.4s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 600px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
+.field input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
 }

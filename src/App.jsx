@@ -2,9 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [rawText, setRawText] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
+  const [text, setText] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -13,99 +11,67 @@ export default function App() {
     organization: "",
     place: "",
     date: "",
-    interested: false,
   });
 
-  const handleAutoFill = () => {
-    const text = rawText;
+  const handleAutoFill = async () => {
+    if (!text.trim()) return;
 
-    setForm({
-      name: text.match(/my name is\s+([a-zA-Z\s]+)/i)?.[1] || "",
-      email:
-        text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/)?.[0] || "",
-      phone: text.match(/\b\d{10}\b/)?.[0] || "",
-      event:
-        text.match(
-          /\b(freshers|workshop|seminar|conference|meeting)\b/i
-        )?.[0] || "",
-      organization:
-        text.match(/college of [a-zA-Z\s]+/i)?.[0] || "",
-      place:
-        text.match(
-          /\b(Hyderabad|Bangalore|Chennai|Delhi|Mumbai)\b/i
-        )?.[0] || "",
-      date:
-        text.match(
-          /\b\d{1,2}\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{4}\b/i
-        )?.[0] || "",
-      interested: false,
-    });
-    setSubmitted(false);
-  };
+    const res = await fetch(
+      "https://YOUR-BACKEND-URL.onrender.com/api/parse",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      }
+    );
 
-  const handleSubmit = () => {
-    setSubmitted(true);
+    const data = await res.json();
+    setForm(data);
   };
 
   return (
     <div className="page">
       <div className="card">
         <h1>SmartFill AI</h1>
-        <p className="tagline">
-          Paste event or message → Review details → Confirm interest
+        <p className="subtitle">
+          Paste any event / college / office message.  
+          AI will extract details automatically.
         </p>
 
         <textarea
-          placeholder={`Example:
-Freshers event at abcCollege of Engineering, kurnool on 25 Jan 2026.
-Contact: abc5@gmail.com 8712756716`}
-          value={rawText}
-          onChange={(e) => setRawText(e.target.value)}
+          placeholder="Example:
+Freshers event at abc College of Engineering & Technology,
+Hyderabad on 25 Jan 2026.
+Contact: 8712756778 | abc15@gmail.com"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
 
-        <button className="primary" onClick={handleAutoFill}>
-          Auto Fill Details
-        </button>
+        <button onClick={handleAutoFill}>Auto Fill Details</button>
 
-        <div className="form-grid">
-          <input placeholder="Full Name" value={form.name} readOnly />
-          <input placeholder="Email Address" value={form.email} readOnly />
-          <input placeholder="Phone Number" value={form.phone} readOnly />
-          <input placeholder="Event / Function" value={form.event} readOnly />
-          <input
-            placeholder="College / Office / Organization"
+        <div className="form">
+          <Field icon="👤" value={form.name} placeholder="Name" />
+          <Field icon="📧" value={form.email} placeholder="Email" />
+          <Field icon="📞" value={form.phone} placeholder="Phone" />
+          <Field icon="🎉" value={form.event} placeholder="Event / Function" />
+          <Field
+            icon="🏫"
             value={form.organization}
-            readOnly
+            placeholder="College / Organization"
           />
-          <input placeholder="Location" value={form.place} readOnly />
-          <input placeholder="Event Date" value={form.date} readOnly />
-
-          <label className="interest-box">
-            <input
-              type="checkbox"
-              checked={form.interested}
-              onChange={(e) =>
-                setForm({ ...form, interested: e.target.checked })
-              }
-            />
-            I am interested in this event
-          </label>
+          <Field icon="📍" value={form.place} placeholder="Place" />
+          <Field icon="📅" value={form.date} placeholder="Date" />
         </div>
-
-        <button
-          className="submit"
-          disabled={!form.interested}
-          onClick={handleSubmit}
-        >
-          Submit Interest
-        </button>
-
-        {submitted && (
-          <p className="success">
-            ✅ Your interest has been recorded successfully!
-          </p>
-        )}
       </div>
+    </div>
+  );
+}
+
+function Field({ icon, value, placeholder }) {
+  return (
+    <div className="field">
+      <span>{icon}</span>
+      <input value={value} placeholder={placeholder} readOnly />
     </div>
   );
 }
