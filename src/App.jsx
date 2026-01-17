@@ -2,10 +2,9 @@ import { useState } from "react";
 import "./App.css";
 
 export default function App() {
-  // Textarea input
   const [rawText, setRawText] = useState("");
+  const [interested, setInterested] = useState(false);
 
-  // Form state
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -14,56 +13,43 @@ export default function App() {
     organization: "",
     place: "",
     date: "",
-    interested: false,
   });
 
-  // 🔹 AUTO FILL FUNCTION (THIS WAS YOUR MAIN ISSUE)
+  // 🔹 WORKING AUTO-FILL (NO API, NO FETCH)
   const handleAutoFill = () => {
-    console.log("Auto Fill clicked"); // DEBUG LINE
-
     const text = rawText;
 
-    // Name (supports multiple formats)
     const name =
       text.match(/my name is\s+([a-zA-Z ]+)/i)?.[1] ||
       text.match(/name[:\-]?\s*([a-zA-Z ]+)/i)?.[1] ||
       "";
 
-    // Email
     const email =
       text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/)?.[0] || "";
 
-    // Phone (10 digits, allows +91 or spaces)
     const phone =
       text.match(/(\+91[\s-]?)?\d{10}/)?.[0] || "";
 
-    // Event keywords
     const event =
       text.match(
         /(freshers|workshop|seminar|conference|meeting|event)/i
       )?.[0] || "";
 
-    // Organization (college / office / institute)
     const organization =
       text.match(
         /(college|institute|university|office)[a-zA-Z .,&]+/i
       )?.[0] || "";
 
-    // Place (simple city match)
     const place =
       text.match(
-        /(hyderabad|bangalore|chennai|delhi|mumbai)/i
+        /(hyderabad|bangalore|chennai|delhi|mumbai|kurnool)/i
       )?.[0] || "";
 
-    // Date (25 Jan 2026 format)
     const date =
       text.match(
         /\b\d{1,2}\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{4}\b/i
       )?.[0] || "";
 
-    console.log({ name, email, phone, event, organization, place, date });
-
-    // 🔹 UPDATE FORM (THIS FILLS UI)
     setForm({
       name,
       email,
@@ -72,8 +58,17 @@ export default function App() {
       organization,
       place,
       date,
-      interested: false,
     });
+
+    setInterested(false);
+  };
+
+  const handleSubmit = () => {
+    if (!interested) {
+      alert("Please confirm your interest before submitting.");
+      return;
+    }
+    alert("Interest submitted successfully ✅");
   };
 
   return (
@@ -81,56 +76,57 @@ export default function App() {
       <div className="card">
         <h1>SmartFill AI</h1>
         <p className="subtitle">
-          Paste any event, college, or office message.  
-          Details will be auto-filled instantly.
+          Paste an event, college, or office message.  
+          Details will be extracted automatically.
         </p>
 
-        {/* TEXTAREA */}
         <textarea
-          placeholder="Example:
-Freshers event at G. Pullaiah College of Engineering and Technology,
+          placeholder={`Example:
+Workshop at ABC College of Engineering,
 Hyderabad on 25 Jan 2026.
-My name is Likith.
-Email likith15@gmail.com
-Phone 8712756716"
+My name is Rahul.
+Email rahul@gmail.com
+Phone 9876543210`}
           value={rawText}
           onChange={(e) => setRawText(e.target.value)}
         />
 
-        {/* BUTTON */}
-        <button className="primary-btn" onClick={handleAutoFill}>
+        <button className="primary" onClick={handleAutoFill}>
           Auto Fill Details
         </button>
 
-        {/* FORM */}
         <div className="form">
-          <input placeholder="Name" value={form.name} readOnly />
-          <input placeholder="Email" value={form.email} readOnly />
-          <input placeholder="Phone" value={form.phone} readOnly />
-          <input placeholder="Event / Function" value={form.event} readOnly />
-          <input placeholder="Organization" value={form.organization} readOnly />
-          <input placeholder="Place" value={form.place} readOnly />
-          <input placeholder="Date" value={form.date} readOnly />
-
-          <label className="checkbox">
-            <input
-              type="checkbox"
-              checked={form.interested}
-              onChange={(e) =>
-                setForm({ ...form, interested: e.target.checked })
-              }
-            />
-            I am interested in this event
-          </label>
-
-          <button
-            className="submit-btn"
-            disabled={!form.interested}
-          >
-            Submit Interest
-          </button>
+          <Field icon="👤" value={form.name} placeholder="Name" />
+          <Field icon="📧" value={form.email} placeholder="Email" />
+          <Field icon="📞" value={form.phone} placeholder="Phone" />
+          <Field icon="🎉" value={form.event} placeholder="Event / Function" />
+          <Field icon="🏫" value={form.organization} placeholder="Organization" />
+          <Field icon="📍" value={form.place} placeholder="Place" />
+          <Field icon="📅" value={form.date} placeholder="Date" />
         </div>
+
+        <label className="checkbox">
+          <input
+            type="checkbox"
+            checked={interested}
+            onChange={(e) => setInterested(e.target.checked)}
+          />
+          I am interested in this event
+        </label>
+
+        <button className="submit" onClick={handleSubmit}>
+          Submit Interest
+        </button>
       </div>
+    </div>
+  );
+}
+
+function Field({ icon, value, placeholder }) {
+  return (
+    <div className="field">
+      <span>{icon}</span>
+      <input value={value} placeholder={placeholder} readOnly />
     </div>
   );
 }

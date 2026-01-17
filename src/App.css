@@ -130,3 +130,13 @@ button {
   font-size: 14px;
   color: #374151;
 }
+.field input,
+textarea,
+input {
+  color: #04070e;           
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: #6b7280;           
+}
