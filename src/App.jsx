@@ -81,15 +81,13 @@ export default function App() {
         </p>
 
         <textarea
-          placeholder={`Example:
-Workshop at ABC College of Engineering,
-Hyderabad on 25 Jan 2026.
-My name is Rahul.
-Email rahul@gmail.com
-Phone 9876543210`}
-          value={rawText}
-          onChange={(e) => setRawText(e.target.value)}
-        />
+  placeholder="Example:
+Workshop at XYZ College,
+Bangalore on 15 Feb 2026.
+Contact: name@email.com | 9876543210"
+  value={rawText}
+  onChange={(e) => setRawText(e.target.value)}
+/>
 
         <button className="primary" onClick={handleAutoFill}>
           Auto Fill Details
