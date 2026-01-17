@@ -135,8 +135,30 @@ textarea,
 input {
   color: #04070e;           
 }
+/* TEXTAREA — PROFESSIONAL & CLEAR */
+textarea {
+  width: 100%;
+  min-height: 150px;
 
-textarea::placeholder,
-input::placeholder {
-  color: #c3c7cf;           
+  padding: 16px;
+  margin-top: 14px;
+
+  background: #f9fafb;        /* light professional background */
+  color: #111827;             /* dark readable text */
+
+  border-radius: 16px;
+  border: 2px solid #e5e7eb;
+
+  font-size: 15px;
+  line-height: 1.6;
+
+  resize: none;
+  outline: none;
+}
+
+/* PLACEHOLDER — USER GUIDANCE */
+textarea::placeholder {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
 }
